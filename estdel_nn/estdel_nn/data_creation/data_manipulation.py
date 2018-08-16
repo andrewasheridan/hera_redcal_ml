@@ -2,13 +2,14 @@
 
 Collection of data helper files
 """
-import numpy as np
-from pyuvdata import UVData
-import hera_cal as hc
-import random
-from threading import Thread
-from glob import glob
 import os
+import random
+import numpy as np
+from threading import Thread
+
+import hera_cal as hc
+from pyuvdata import UVData
+
 
 def load_relevant_data(miriad_path, calfits_path):
     """Loads redundant baselines, gains, and data.
