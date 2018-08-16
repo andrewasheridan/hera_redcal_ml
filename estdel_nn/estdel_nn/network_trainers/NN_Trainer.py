@@ -1,5 +1,5 @@
 import sys, os
-from nn.networks import RestoreableComponent
+from estdel_nn.networks import RestoreableComponent
 
 
 # NN_Trainer
