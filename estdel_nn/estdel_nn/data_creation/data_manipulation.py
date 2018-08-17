@@ -22,7 +22,10 @@ def load_relevant_data(miriad_path, calfits_path):
         red_bls, gains, uvd
     
     """
-
+    # ???: Do I need to check that both paths are for the same JD?
+    # ???: Do I need to check this?
+    assert (type(miriad_path) is type(calfits_path) is str)
+    
     # read the data
     uvd = UVData()
     uvd.read_miriad(miriad_path)
@@ -56,7 +59,7 @@ def get_good_red_bls(red_bls, gain_keys, min_group_len = 4):
         list of lists: Each sublist is a len >=4 list of separations of good antennas
     
     """
-    
+    assert min_group_len >= 4, 'min_group_len needs to be at least 4, so that each training set can take two seps.'
     def ants_good(sep):
         """ants_good
 
@@ -77,11 +80,7 @@ def get_good_red_bls(red_bls, gain_keys, min_group_len = 4):
 
         ants = [a[0] for a in gain_keys]
 
-        if sep[0] in ants and sep[1] in ants:
-            return True
-
-        else:
-            return False
+        return sep[0] in ants and sep[1] in ants
 
     good_redundant_baselines = []
     
@@ -92,14 +91,13 @@ def get_good_red_bls(red_bls, gain_keys, min_group_len = 4):
         for sep in group:
             
             # only retain seps made from good antennas
-            if ants_good(sep) == True:
+            if ants_good(sep) is True:
                 new_group.append(sep)
                 
-        new_group_len = len(new_group)
         
         # make sure groups are large enough that both the training set
         # and the testing set can take two seps 
-        if new_group_len >= min_group_len:
+        if len(new_group) >= min_group_len:
             
             good_redundant_baselines.append(sorted(new_group))
             

@@ -50,8 +50,7 @@ setup(name = 'estdel_nn',
           'pyuvdata',
       ],
       zip_safe=False,
-      #include_package_data=True,
-      #test_suite="estdel_nn.tests",
+      test_suite="estdel_nn.tests",
       )
 
 # ???: On setup there are many 'Adding xxx to easy-install.pth file'. Why?
